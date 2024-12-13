@@ -34,7 +34,7 @@
   "engines": {
     "node": ">=18"
   },
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);",
   "repository": {
     "type": "git",
