@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "jsrpublish": "vinxi build;npx jsr publish"
   },
   "devDependencies": {
     "@capacitor/cli": "latest",
@@ -33,6 +34,7 @@
     "@tauri-apps/plugin-store": "github:tauri-apps/tauri-plugin-store#v2",
     "@tauri-apps/plugin-stronghold": "github:tauri-apps/tauri-plugin-stronghold#v2",
     "@typeschema/valibot": "^0.14.0",
+    "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "component-register": "^0.8.7",
@@ -54,7 +56,7 @@
     "pnpm": ">=9",
     "npm": "please_use_pnpm_instead"
   },
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "dure baseapp",
   "repository": {
     "type": "git",

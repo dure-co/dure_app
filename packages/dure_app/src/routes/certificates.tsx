@@ -68,84 +68,6 @@ import {
   hostname as hostnameInfo,
 } from "@tauri-apps/plugin-os";
 
-const data23: Payment[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
-  },
-];
-
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
-
 export type Payment = {
   id: string;
   amount: number;
@@ -153,137 +75,9 @@ export type Payment = {
   email: string;
 };
 
-const columns23: ColumnDef<Payment>[] = [
-  {
-    id: "select",
-    header: (props) => (
-      <Checkbox
-        checked={props.table.getIsAllPageRowsSelected()}
-        indeterminate={props.table.getIsSomePageRowsSelected()}
-        onChange={(value) => props.table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: (props) => (
-      <Checkbox
-        checked={props.row.getIsSelected()}
-        onChange={(value) => props.row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: (props) => (
-      <div class="capitalize">{props.row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: (props) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() =>
-            props.column.toggleSorting(props.column.getIsSorted() === "asc")
-          }
-        >
-          Email
-          <IconSelector />
-        </Button>
-      );
-    },
-    cell: (props) => <div class="lowercase">{props.row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div class="text-right">Amount</div>,
-    cell: (props) => {
-      const formatted = () => {
-        const amount = parseFloat(props.row.getValue("amount"));
-        return new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
-      };
-      return <div class="text-right font-medium">{formatted()}</div>;
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: (props) => {
-      return (
-        <DropdownMenu placement="bottom-end">
-          <DropdownMenuTrigger
-            as={Button<"button">}
-            variant="ghost"
-            class="size-8 p-0"
-          >
-            <span class="sr-only">Open menu</span>
-            <IconDots />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(props.row.original.id)
-              }
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
 import { generateKey, readKey } from "openpgp/lightweight";
 
 export default function Certificates(props: RouteSectionProps) {
-  const [sorting, setSorting] = createSignal<SortingState>([]);
-  const [columnFilters, setColumnFilters] = createSignal<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] = createSignal<VisibilityState>(
-    {}
-  );
-  const [rowSelection, setRowSelection] = createSignal({});
-
-  const table = createSolidTable({
-    data: data23,
-    columns: columns23,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      get sorting() {
-        return sorting();
-      },
-      get columnFilters() {
-        return columnFilters();
-      },
-      get columnVisibility() {
-        return columnVisibility();
-      },
-      get rowSelection() {
-        return rowSelection();
-      },
-    },
-  });
-
   const [loading, setLoading] = createSignal(false);
   const [deviceid, setDeviceid] = createSignal<string | null>(null);
   const [deviceName, setDeviceName] = createSignal<string | null>(null);
@@ -299,12 +93,7 @@ export default function Certificates(props: RouteSectionProps) {
   const [newkey, setNewkey] = createSignal<string | null>(null);
 
   createEffect(async () => {
-    if (username() == null && loading() != true) {
-      await getKeys();
-    }
-    if (deviceid() == null && loading() != true) {
-      await getDevices();
-    }
+    await getKeys();
   });
 
   createEffect(async () => {
@@ -317,8 +106,6 @@ export default function Certificates(props: RouteSectionProps) {
 
   const getKeys = async () => {
     try {
-      if (username() != null || loading() == true) return false;
-
       setLoading(true);
 
       const _session = session();
@@ -343,6 +130,8 @@ export default function Certificates(props: RouteSectionProps) {
         setWebsite(data.website);
         setUserGpgKey(data.user_gpg_key);
         //setDeviceGpgKeys(data.device_gpg_keys);
+
+        await getDevices();
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -355,8 +144,9 @@ export default function Certificates(props: RouteSectionProps) {
 
   const getDevices = async () => {
     try {
-      if (loading() == true) return false;
-
+      if (loading() == true || deviceid() == false) {
+        return false;
+      }
       setLoading(true);
       console.log(deviceid());
 
@@ -378,6 +168,8 @@ export default function Certificates(props: RouteSectionProps) {
         console.log(data);
         setDeviceid(data.id);
         setDeviceGpgKeys(data.device_gpg_key);
+      } else {
+        setDeviceid(false);
       }
     } catch (error) {
       if (error instanceof Error) {

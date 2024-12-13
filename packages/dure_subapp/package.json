@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@corvu/resizable": "^0.2.3",
-    "@dure/app": "workspace:^",
     "@kobalte/core": "^0.13.7",
     "@prisma/client": "^5.12.1",
     "@solid-primitives/i18n": "^2.1.1",

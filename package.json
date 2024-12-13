@@ -2,7 +2,7 @@
   "name": "@dure/monorepo",
   "version": "1.0.0",
   "description": "",
-  "private": true,
+  "private": false,
   "scripts": {
     "build:app": "cd packages/dure_app && pnpm build",
     "test": "echo \"Error: no test specified\" && exit 1"

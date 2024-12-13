@@ -80,18 +80,15 @@ export default function Subapp(props: RouteSectionProps) {
               <dure-subapp
                 supabaseProjectUrl="https://enkgalkrwfipwjkmmwwj.supabase.co"
                 supabaseAnonKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2dhbGtyd2ZpcHdqa21td3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA0MjE1NTQsImV4cCI6MjA0NTk5NzU1NH0.AvI-jzgm79q3vWXTWYoJw7yi7VPcMzHjp0jESUoD6Fc"
-                setMessages={setMessages}
-                messages={messages}
-                mqttClient={mqttClient}
               ></dure-subapp>
             </div>
-            <DialogFooter>
+            {/* <DialogFooter>
               <Button type="submit">Close</Button>
-            </DialogFooter>
+            </DialogFooter> */}
           </DialogContent>
         </Dialog>
         <br />
-        <Resizable class="border">
+        {/* <Resizable class="border">
           <ResizablePanel initialSize={0.0} class="overflow-hidden">
             <span class="font-semibold">Apps</span>
             <div class="flex h-[50px] items-center justify-center p-6"></div>
@@ -105,7 +102,7 @@ export default function Subapp(props: RouteSectionProps) {
               </div>
             </Resizable>
           </ResizablePanel>
-        </Resizable>
+        </Resizable> */}
         <br />
       </div>
       <div class="hidden text-sm xl:block">&nbsp;</div>

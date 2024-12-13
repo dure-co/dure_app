@@ -3,12 +3,12 @@ import { createStore } from "solid-js/store";
 import { Router } from "@solidjs/router";
 import { TextField, TextFieldInput, TextFieldLabel } from "./ui/text-field";
 import { Resizable, ResizableHandle, ResizablePanel } from "./ui/resizable";
-import {
-  client,
-  addmsg,
-  messages,
-  setMessages,
-} from "@dure/app/src/lib/mqtt.jsx";
+// import {
+//   client,
+//   addmsg,
+//   messages,
+//   setMessages,
+// } from "@dure/app/src/lib/mqtt.jsx";
 
 export const Subapp: Component<{
   supabaseProjectUrl: string;
@@ -19,8 +19,8 @@ export const Subapp: Component<{
 
   onMount(async () => {
     console.log("on mount ", window, props);
-    console.log("messages", messages());
-    setMessages("test");
+    // console.log("messages", messages());
+    // setMessages("test");
   });
 
   return (
@@ -30,7 +30,7 @@ export const Subapp: Component<{
       <br />
       baseapp messaging text
       <br />
-      <div class="flex h-[600px] " innerHTML={messages()}></div>
+      {/* <div class="flex h-[600px] " innerHTML={messages()}></div> */}
       <br />
     </Suspense>
   );
