@@ -31,7 +31,7 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_store::Builder::default().build())
-        .plugin(tauri_plugin_system_info::init())
+        // .plugin(tauri_plugin_system_info::init())
         // .plugin(tauri_plugin_mqtt::init())
         // .plugin(
         //     tauri_plugin_stronghold::Builder::new(|password| {
