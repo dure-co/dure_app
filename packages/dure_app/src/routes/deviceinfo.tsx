@@ -21,18 +21,6 @@ import { Stronghold, Location, Client } from "@tauri-apps/plugin-stronghold";
 import { appDataDir } from "@tauri-apps/api/path";
 import { decycle } from "../lib/utils";
 import {
-  allSysInfo,
-  memoryInfo,
-  staticInfo,
-  cpuInfo,
-  AllSystemInfo,
-  StaticInfo,
-  MemoryInfo,
-  CpuInfo,
-  batteries,
-  Batteries,
-} from "tauri-plugin-system-info-api";
-import {
   TextField,
   TextFieldInput,
   TextFieldTextArea,

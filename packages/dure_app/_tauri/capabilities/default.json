@@ -14,8 +14,6 @@
     "store:allow-delete",
     "store:allow-keys",
     "store:allow-clear",
-    "stronghold:default",
-    "system-info:allow-all",
-    "system-info:allow-all-sys-info"
+    "stronghold:default"
   ]
 }
