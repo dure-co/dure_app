@@ -1,0 +1,49 @@
+# not tested do not use
+name: "dure kivy ios build" # https://github.com/kivy/buildozer/blob/master/.github/workflows/ios.yml
+# https://developer.apple.com/kr/support/xcode/
+# https://nektosact.com/usage/runners.html
+# on: [push, pull_request]
+on:
+  workflow_dispatch:
+  # push:
+  #   tags:
+  #     - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  Integration:
+    name: "Integration (${{ matrix.runs_on }}, ${{ matrix.python }})"
+    # runs-on: ${{ matrix.runs_on }}
+    strategy:
+      matrix:
+        os:
+          - "macos-latest"
+    runs-on:
+      ${{ matrix.os }}
+      # macos-latest (ATM macos-14) runs on Apple Silicon,
+      # macos-13 runs on Intel
+      # runs_on: [macos-latest, macos-13]
+    steps:
+      - name: 1. install some
+        run: |
+          pwd && uname -a
+      - name: 1. Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - uses: actions/checkout@v4
+      - name: 3. Setup environment
+        run: |
+          pip install https://github.com/kivy/buildozer/archive/master.zip pexpect packaging kivy-ios
+      - name: 4. Check buildozer installation
+        run: |
+          buildozer --help
+      - name: 5. Initialize buildozer in project folder
+        run: |
+          buildozer init
+      - name: 6. Install dependencies
+        run: |
+          brew install autoconf automake libtool pkg-config
+      - name: 7. buildozer ios debug
+        run: |
+          cd packages/dure_app/_kivy
+          buildozer ios debug

@@ -1,0 +1,73 @@
+{
+  "name": "@dure/app",
+  "private": false,
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest",
+    "@suid/icons-material": "^0.4.1",
+    "@suid/material": "^0.6.3",
+    "@tauri-apps/cli": "^2.1.0",
+    "internal-ip": "^7.0.0"
+  },
+  "dependencies": {
+    "@corvu/resizable": "^0.2.3",
+    "@kobalte/core": "^0.13.7",
+    "@solid-primitives/storage": "^4.0.0",
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.14.1",
+    "@solidjs/start": "^1.0.6",
+    "@stitches/core": "^1.2.8",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.47.1",
+    "@tanstack/solid-query": "^5.52.2",
+    "@tanstack/solid-table": "^8.20.5",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-log": "github:tauri-apps/tauri-plugin-log#v2",
+    "@tauri-apps/plugin-notification": "github:tauri-apps/tauri-plugin-notification#v2",
+    "@tauri-apps/plugin-os": "github:tauri-apps/tauri-plugin-os#v2",
+    "@tauri-apps/plugin-shell": "github:tauri-apps/tauri-plugin-shell#v2",
+    "@tauri-apps/plugin-store": "github:tauri-apps/tauri-plugin-store#v2",
+    "@tauri-apps/plugin-stronghold": "github:tauri-apps/tauri-plugin-stronghold#v2",
+    "@typeschema/valibot": "^0.14.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "component-register": "^0.8.7",
+    "just-merge": "^3.2.0",
+    "lit-html": "^3.2.1",
+    "mqtt": "^5.10.3",
+    "openpgp": "^6.0.1",
+    "solid-js": "^1.8.20",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss": "^3.4.10",
+    "tauri-plugin-system-info-api": "^2.0.8",
+    "use-m": "^8.10.25",
+    "valibot": "^0.39.0",
+    "vinxi": "^0.4.1",
+    "zod": "^3.23.8"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9",
+    "npm": "please_use_pnpm_instead"
+  },
+  "version": "0.0.0",
+  "description": "dure baseapp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bignikescar/dure_mono.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bignikescar/dure_mono/issues"
+  },
+  "homepage": "https://github.com/bignikescar/dure_mono#readme",
+  "type": "module",
+  "files": [
+    "dist"
+  ]
+}

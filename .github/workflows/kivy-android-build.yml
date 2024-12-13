@@ -1,0 +1,61 @@
+name: "dure kivy android build" # https://github.com/kivy/buildozer/blob/master/.github/workflows/android.yml
+# on: [push, pull_request] # this event activated with act -v cmd
+on:
+  workflow_dispatch:
+#   push:
+#     tags:
+#       - "v[0-9]+.[0-9]+.[0-9]+"
+
+env:
+  PYTHONFORANDROID_PREREQUISITES_INSTALL_INTERACTIVE: 0
+
+jobs:
+  kivy-android-build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+          #- "macOs-latest"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: 1. Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: 2. Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+      - uses: actions/checkout@v4
+      - name: 4. Setup environment
+        run: |
+          pip install https://github.com/kivy/buildozer/archive/master.zip pexpect packaging pywebview
+          ln -s /opt/hostedtoolcache/Python/3.12.5/x64/lib/python3.12/site-packages/webview packages/dure_app/_kivy/webview
+      #- run: buildozer --help
+      - run: yes|buildozer init || true
+      - name: 7. SDK, NDK and p4a download
+        run: |
+          sed -i.bak "s/# android.accept_sdk_license = False/android.accept_sdk_license = True/" buildozer.spec
+          sed -i.bak "s/#p4a.branch = master/p4a.branch = develop/" buildozer.spec
+          yes|buildozer android p4a -- --help  || true
+      # Install OS specific dependencies
+      - name: 8. Install Linux dependencies
+        # if: matrix.os == 'ubuntu-latest'
+        # Required by some p4a recipes, but not
+        # installed by p4a on Linux.
+        run: sudo apt -y install automake
+      - name: 9. Debug Build
+        run: |
+          cd packages/dure_app/_kivy
+          yes|buildozer android debug  || true
+      - run: |
+          false
+      - name: 10. Release Build (aab)
+        run: |
+          cd packages/dure_app/_kivy
+          export BUILDOZER_ALLOW_ORG_TEST_DOMAIN=1
+          buildozer android release

@@ -1,0 +1,62 @@
+{
+  "name": "@dure/subapp",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "babel-preset-solid": "^1.8.22",
+    "solid-devtools": "^0.30.1",
+    "solid-element": "^1.8.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.3",
+    "vite-plugin-solid": "^2.10.2"
+  },
+  "dependencies": {
+    "@corvu/resizable": "^0.2.3",
+    "@dure/app": "workspace:^",
+    "@kobalte/core": "^0.13.7",
+    "@prisma/client": "^5.12.1",
+    "@solid-primitives/i18n": "^2.1.1",
+    "@solidjs/router": "^0.15.0",
+    "@solidjs/start": "^1.0.10",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "internal-ip": "^7.0.0",
+    "prisma": "^5.12.1",
+    "solid-js": "^1.9.2",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss-animate": "^1.0.7",
+    "vinxi": "^0.4.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "version": "1.0.14",
+  "description": "Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bignikescar/dure_subapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bignikescar/dure_subapp/issues"
+  },
+  "homepage": "https://github.com/bignikescar/dure_subapp#readme",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/subapp.umd.cjs",
+  "module": "./dist/subapp.js",
+  "exports": {
+    ".": {
+      "import": "./dist/subapp.js",
+      "require": "./dist/subapp.umd.cjs"
+    }
+  }
+}

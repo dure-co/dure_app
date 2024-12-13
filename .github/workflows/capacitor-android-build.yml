@@ -1,0 +1,97 @@
+name: "dure capacitor android build"
+
+# on: [push, pull_request] # this event activated with act -v cmd
+on:
+  workflow_dispatch:
+#   push:
+#     tags:
+#       - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  capacitor-android-build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+          #- "macOs-latest"
+
+    name: Build APK
+    runs-on: ubuntu-latest
+    # TODO: add the default directory - COMMENT IF IT'S NOT IN SUBFOLDER
+    # defaults:
+    #   run:
+    #     working-directory: ./frontend
+    steps:
+      - name: 1. Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 2. Setup java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "zulu"
+          java-version: "17"
+
+      - name: 3. Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 4. Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+
+      - name: 5. install dependencies
+        run: npm install -g pnpm && rm -rf pnpm-lock.yaml && cd ./packages/dure_app && rm -rf pnpm-lock.yaml && pnpm install
+
+      - name: 6. build
+        run: pnpm build && ls ./.output/public && find . -name "*.br" -type f -delete && find . -name "*.gz" -type f -delete
+
+      - name: 7. Add android folder if not present
+        run: if [ ! -d "./android" ]; then cd ./packages/dure_app && npx cap add android; fi
+
+      - name: 8. Capacitor update
+        run: cd ./packages/dure_app && npx cap update
+
+      - name: 9. Capacitor copy
+        run: cd ./packages/dure_app && npx cap copy
+
+      # TODO: Check for folder structure in README for generating splash screen
+      - name: 10. Generate icons and splash screen to android folder
+        run: if [ -d "./resources" ]; then cd ./packages/dure_app && pnpm install @capacitor/assets --save-dev && npx capacitor-assets generate --android; fi # ????
+
+      - name: 11. Build app bundle
+        run: cd ./packages/dure_app && cd android && ./gradlew bundle && ./gradlew assembleDebug # building apk
+
+      # keytool -genkey -v -keystore testapp-key.keystore -alias testapp-key -keyalg RSA -keysize 2048 -validity 10000
+      # base64 testapp-key.keystore | awk '{print}' ORS=''
+      - name: 12. Extract Android signing key from env
+        run: |
+          mkdir android
+          echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
+          base64 -d android/release.jks.base64 > android/testapp-key.keystore
+          ls ./android/app/build/outputs/bundle/release
+
+      # jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore testapp-key.keystore testapp.apk testapp-key
+      - name: 13. Sign dev build
+        run: jarsigner -keystore android/testapp-key.keystore -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/bundle/release/app-release-signed.aab ./android/app/build/outputs/bundle/release/app-release.aab testapp-key
+
+      - name: 14. Check folder content of android output
+        run: ls ./android/app/build/outputs/bundle/release
+
+      # - name: 15. Set Tag
+      #   id: current-datetime
+      #   run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d-%H_%M_%S%z')" >> "$GITHUB_OUTPUT"
+
+      - name: 16. Build Release
+        shell: bash
+        run: |
+          hub release create ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
+          -m ${{ steps.current-datetime.outputs.CURRENT_DATETIME }} \
+          -a ./android/app/build/outputs/bundle/release/app-release-signed.aab \
+          -a ./android/app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

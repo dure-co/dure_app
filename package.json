@@ -1,0 +1,17 @@
+{
+  "name": "@dure/monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build:app": "cd packages/dure_app && pnpm build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "pnpm": ">=9",
+    "npm": "please_use_pnpm_instead"
+  }
+}
