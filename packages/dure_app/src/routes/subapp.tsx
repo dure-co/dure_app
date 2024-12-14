@@ -56,7 +56,11 @@ export default function Subapp(props: RouteSectionProps) {
   // const _ = await use("@dure/subapp"); // use prisma branch
   // https://github.com/esm-dev/esm.sh/tree/main
   // importing web component
+
   const _ = use("@dure/subapp");
+  // const _123 = use("@github/auto-check-element");
+  // console.log(_123);
+
   // console.log(_, __);
   // const duresubapp = () => html`<dure-subapp></dure-subapp> `;
   // console.log(duresubapp());
@@ -81,6 +85,10 @@ export default function Subapp(props: RouteSectionProps) {
                 supabaseProjectUrl="https://enkgalkrwfipwjkmmwwj.supabase.co"
                 supabaseAnonKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2dhbGtyd2ZpcHdqa21td3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA0MjE1NTQsImV4cCI6MjA0NTk5NzU1NH0.AvI-jzgm79q3vWXTWYoJw7yi7VPcMzHjp0jESUoD6Fc"
               ></dure-subapp>
+            </div>
+            <br />
+            <div>
+              <auto-check src="/signup-check/username"></auto-check>
             </div>
             {/* <DialogFooter>
               <Button type="submit">Close</Button>
